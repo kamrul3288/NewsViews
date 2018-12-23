@@ -1,9 +1,9 @@
 # NewsViews
 
 # Used Tech
-. Java  (<--  )
-. MVP  (<--  )
-. Dagger2  (<--  )
-. Butterknife  (<--  )
-. Recyclerview  (<--  )
-. Cardview  (<--  )
+. Java<br/>
+. MVP<br/>
+. Dagger2<br/>
+. Butterknife<br/>
+. Recyclerview<br/>
+. Cardview<br/>
