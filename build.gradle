@@ -36,5 +36,6 @@ ext{
     dagger_version = '2.19'
     retrofit_version = '2.5.0'
     butter_knife_version = '9.0.0-rc2'
+    glide_version = '4.8.0'
 
 }
