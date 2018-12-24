@@ -13,6 +13,7 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_home"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -41,6 +42,7 @@
         android:layout_height="@dimen/_1sdp"/>
 
     <LinearLayout
+        android:id="@+id/ll_socialLogin"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -69,6 +71,7 @@
         android:layout_height="@dimen/_1sdp"/>
 
     <LinearLayout
+        android:id="@+id/ll_about"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -98,6 +101,7 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_exit"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:layout_width="match_parent"

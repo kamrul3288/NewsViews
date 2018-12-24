@@ -1,6 +1,7 @@
 package com.kamrul3288.newsviews.view.homescreen;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.kamrul3288.newsviews.R;
 import com.kamrul3288.newsviews.adapter.NewsAdepter;
 import com.kamrul3288.newsviews.model.NewsList;
+import com.kamrul3288.newsviews.view.aboutscreen.AboutActivity;
 import com.kamrul3288.newsviews.view.base.BaseActivity;
 import com.kamrul3288.newsviews.view.homescreen.di.DaggerMainScreenComponent;
 import com.kamrul3288.newsviews.view.homescreen.di.MainScreenComponent;
@@ -31,6 +33,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class MainActivity extends BaseActivity implements MainScreenContract.MainScreenView , SwipeRefreshLayout.OnRefreshListener {
@@ -152,6 +155,27 @@ public class MainActivity extends BaseActivity implements MainScreenContract.Mai
             ButterKnife.bind(this,view);
         }
 
+        @OnClick(R.id.ll_home)
+        public void home(){
+            drawer.closeDrawers();
+        }
+
+        @OnClick(R.id.ll_socialLogin)
+        public void gotoSocialLoginPage(){
+            drawer.closeDrawers();
+        }
+
+        @OnClick(R.id.ll_about)
+        public void gotoAboutPage(){
+            drawer.closeDrawers();
+            startActivity(new Intent(activity,AboutActivity.class));
+        }
+
+        @OnClick(R.id.ll_exit)
+        public void exit(){
+            drawer.closeDrawers();
+        }
+
     }
 
     @Override
@@ -172,6 +196,7 @@ public class MainActivity extends BaseActivity implements MainScreenContract.Mai
         mainScreenPresenter.onDestroy();
         super.onDestroy();
     }
+
 
 
 }
