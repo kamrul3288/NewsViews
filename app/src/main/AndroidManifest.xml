@@ -55,8 +55,12 @@
         <activity
             android:name=".view.socialloginscreen.SocialLoginActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.webview.NewsWebViewActivity" />
-        <activity android:name=".view.numberapiscreen.NumberApiInfoActivity"></activity>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".view.webview.NewsWebViewActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".view.numberapiscreen.NumberApiInfoActivity"/>
     </application>
 
 </manifest>
