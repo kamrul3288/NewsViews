@@ -1,6 +1,10 @@
 package com.kamrul3288.newsviews.adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kamrul3288.newsviews.R;
+import com.kamrul3288.newsviews.constant.Constants;
 import com.kamrul3288.newsviews.model.NewsList;
+import com.kamrul3288.newsviews.view.webview.NewsWebViewActivity;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -20,9 +26,11 @@ public class NewsAdepter extends RecyclerView.Adapter<NewsAdepter.NewsViewHolder
 
     private final Activity activity;
     private NewsList newsList = new NewsList();
+    private AlertDialog.Builder builder;
 
-    public NewsAdepter(Activity activity) {
+    public NewsAdepter(Activity activity,AlertDialog.Builder builder) {
         this.activity = activity;
+        this.builder = builder;
     }
 
 
@@ -67,6 +75,31 @@ public class NewsAdepter extends RecyclerView.Adapter<NewsAdepter.NewsViewHolder
         NewsViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    builder.setMessage("Are you want to open link into your mobile browser?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent i = new Intent(Intent.ACTION_VIEW);
+                                    i.setData(Uri.parse(newsList.getArticles().get(getAdapterPosition()).getUrl()));
+                                    activity.startActivity(i);
+                                }
+                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            activity.startActivity(new Intent(activity,NewsWebViewActivity.class)
+                            .putExtra(Constants.NEWS_LINK,newsList.getArticles().get(getAdapterPosition()).getUrl()));
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            });
+
         }
     }
 }

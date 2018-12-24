@@ -1,7 +1,7 @@
 package com.kamrul3288.newsviews.view.homescreen;
 
 import android.app.Activity;
-
+import android.app.AlertDialog;
 import com.kamrul3288.newsviews.model.NewsList;
 import com.kamrul3288.newsviews.networkapi.ApiInterfaces;
 
@@ -14,13 +14,15 @@ public class MainScreenPresenterImpl implements MainScreenContract.MainScreenPre
     private MainScreenContract.MainScreenModel mainScreenModel;
     private ApiInterfaces apiInterfaces;
     private Activity activity;
+    private AlertDialog.Builder builder;
 
     @Inject
-    public MainScreenPresenterImpl(MainScreenContract.MainScreenView view, ApiInterfaces apiInterfaces,Activity activity) {
+    public MainScreenPresenterImpl(MainScreenContract.MainScreenView view, ApiInterfaces apiInterfaces,Activity activity,AlertDialog.Builder builder) {
         this.view = view;
         this.apiInterfaces = apiInterfaces;
         mainScreenModel = new MainScreenModelImpl();
         this.activity = activity;
+        this.builder = builder;
     }
 
     @Override
@@ -30,6 +32,15 @@ public class MainScreenPresenterImpl implements MainScreenContract.MainScreenPre
             mainScreenModel.loadNews(this,apiInterfaces,activity);
         }
     }
+
+    @Override
+    public void showExitDialog() {
+       if (view != null){
+           mainScreenModel.showExitDialog(builder,this);
+       }
+    }
+
+
 
     @Override
     public void onDestroy() {
@@ -53,4 +64,13 @@ public class MainScreenPresenterImpl implements MainScreenContract.MainScreenPre
             view.showNetworkError(message);
         }
     }
+
+    @Override
+    public void onExitPositive() {
+        if (view != null){
+            view.exitFromApp();
+        }
+    }
+
+
 }

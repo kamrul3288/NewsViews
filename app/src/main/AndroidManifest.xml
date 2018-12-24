@@ -53,8 +53,9 @@
             android:name=".view.aboutscreen.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".view.socialloginscreen.SocialLoginActivity"/>
+            android:name=".view.socialloginscreen.SocialLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.webview.NewsWebViewActivity"></activity>
     </application>
 
 </manifest>

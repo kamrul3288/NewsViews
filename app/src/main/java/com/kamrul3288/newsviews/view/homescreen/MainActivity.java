@@ -146,6 +146,11 @@ public class MainActivity extends BaseActivity implements MainScreenContract.Mai
     }
 
     @Override
+    public void exitFromApp() {
+        finish();
+    }
+
+    @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
         mainScreenPresenter.loadNews();
@@ -176,27 +181,12 @@ public class MainActivity extends BaseActivity implements MainScreenContract.Mai
         @OnClick(R.id.ll_exit)
         public void exit(){
             drawer.closeDrawers();
-            showAlertDialog();
+            mainScreenPresenter.showExitDialog();
         }
 
     }
 
-    private void showAlertDialog() {
-        builder.setMessage("Are you want to exit?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
+
 
     @Override
     public void onBackPressed() {

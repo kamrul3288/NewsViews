@@ -1,6 +1,8 @@
 package com.kamrul3288.newsviews.view.homescreen;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 
 import com.kamrul3288.newsviews.R;
@@ -42,4 +44,23 @@ public class MainScreenModelImpl implements MainScreenContract.MainScreenModel{
             }
         });
     }
+
+    @Override
+    public void showExitDialog(AlertDialog.Builder builder, OnFinishListener listener) {
+        builder.setMessage("Are you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                            listener.onExitPositive();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 }

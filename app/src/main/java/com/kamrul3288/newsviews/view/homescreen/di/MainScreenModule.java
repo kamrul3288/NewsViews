@@ -35,8 +35,14 @@ public class MainScreenModule {
 
     @MainScreenScope
     @Provides
-    NewsAdepter adepter(Activity activity){
-        return new NewsAdepter(activity);
+    AlertDialog.Builder builder(Activity activity){
+        return new AlertDialog.Builder(activity);
+    }
+
+    @MainScreenScope
+    @Provides
+    NewsAdepter adepter(Activity activity,AlertDialog.Builder builder){
+        return new NewsAdepter(activity,builder);
     }
 
     @MainScreenScope
@@ -45,11 +51,7 @@ public class MainScreenModule {
         return view;
     }
 
-    @MainScreenScope
-    @Provides
-    AlertDialog.Builder builder(Activity activity){
-        return new AlertDialog.Builder(activity);
-    }
+
 
 }
 
