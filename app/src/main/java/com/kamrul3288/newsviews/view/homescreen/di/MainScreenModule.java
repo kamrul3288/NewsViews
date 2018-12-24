@@ -1,6 +1,7 @@
 package com.kamrul3288.newsviews.view.homescreen.di;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 
 import com.kamrul3288.newsviews.adapter.NewsAdepter;
@@ -42,6 +43,12 @@ public class MainScreenModule {
     @Provides
     MainScreenContract.MainScreenView view(){
         return view;
+    }
+
+    @MainScreenScope
+    @Provides
+    AlertDialog.Builder builder(Activity activity){
+        return new AlertDialog.Builder(activity);
     }
 
 }

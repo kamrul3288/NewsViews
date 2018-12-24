@@ -1,6 +1,8 @@
 package com.kamrul3288.newsviews.view.homescreen;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -71,6 +73,9 @@ public class MainActivity extends BaseActivity implements MainScreenContract.Mai
 
     @Inject
     GridLayoutManager gridLayoutManager;
+
+    @Inject
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,8 +179,26 @@ public class MainActivity extends BaseActivity implements MainScreenContract.Mai
         @OnClick(R.id.ll_exit)
         public void exit(){
             drawer.closeDrawers();
+            showAlertDialog();
         }
 
+    }
+
+    private void showAlertDialog() {
+        builder.setMessage("Are you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
