@@ -68,6 +68,9 @@ dependencies {
     implementation "com.intuit.ssp:ssp-android:$spd_version"
     implementation "com.intuit.sdp:sdp-android:$spd_version"
 
+    //facebook
+    implementation 'com.facebook.android:facebook-login:[4,5)'
+
 
 
 
