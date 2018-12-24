@@ -9,6 +9,7 @@
 
     <TextView
         android:text="@string/myself_intro_1"
+        android:textSize="@dimen/_14sdp"
         android:textColor="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
