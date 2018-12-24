@@ -21,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
         OkHttpClientModule.class
 })
 public class ApplicationModule {
+
     @Singleton
     @Provides
     public ApiInterfaces apiInterfaces(Retrofit retrofit){
@@ -31,7 +32,7 @@ public class ApplicationModule {
     @Provides
     public Retrofit retrofit(OkHttpClient okHttpClient, GsonConverterFactory gsonConverterFactory){
         return new Retrofit.Builder()
-                .baseUrl("NEED TO BASE UTL") //todo
+                .baseUrl("http://newsapi.org/") //todo
                 .client(okHttpClient)
                 .addConverterFactory(gsonConverterFactory)
                 .build();

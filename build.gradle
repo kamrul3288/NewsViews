@@ -36,7 +36,7 @@ ext{
     dagger_version = '2.19'
     retrofit_version = '2.5.0'
     butter_knife_version = '9.0.0-rc2'
-    glide_version = '4.8.0'
+    picasso_version = '2.71828'
     gson_version = '2.8.5'
     okkhttp_version = '3.12.0'
     multidex_version = '2.0.1'

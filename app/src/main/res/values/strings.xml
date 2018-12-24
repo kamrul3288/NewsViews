@@ -16,4 +16,5 @@
     <string name="social_login">Social Login</string>
     <string name="about">About</string>
     <string name="exit">Exit</string>
+    <string name="opps_network_error">Opps! Newtwork error. Please reload again</string>
 </resources>
