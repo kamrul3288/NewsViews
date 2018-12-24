@@ -7,7 +7,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="myself_intro_1">I am Kamrul Hasan</string>
-    <string name="myself_intro_2">My niick name is Sobuj</string>
+    <string name="myself_intro_2">My nick name is Sobuj</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

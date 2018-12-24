@@ -19,6 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keep class com.kamrul3288.newsviews.** { *; }
+-keep interface com.kamrul3288.newsviews.** { *; }
 
 #----------------------------------------RETROFIT ----------------------------------------------------------
 -keepattributes Signature, InnerClasses, EnclosingMethod
@@ -49,12 +51,28 @@
 
 
 #----------------------------------------------OKHTTP--------------------------------------------------------
--dontwarn okhttp3.internal.platform.*
+# JSR 305 annotations are for embedding nullability information.
+-dontwarn javax.annotation.**
 
-#--------------------------------------------   GLIDE------------------------------------------------------------
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep public class * extends com.bumptech.glide.module.AppGlideModule
--keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
-  **[] $VALUES;
-  public *;
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+
+# Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+
+# OkHttp platform used only on JVM and when Conscrypt dependency is available.
+-dontwarn okhttp3.internal.platform.ConscryptPlatform
+
+#-------------------------------FACEBOOK---------------------------------------
+-keepclassmembers class * implements java.io.Serializable {
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
 }
+
+-keepnames class com.facebook.FacebookActivity
+-keepnames class com.facebook.CustomTabActivity
+
+-keep class com.facebook.login.Login
