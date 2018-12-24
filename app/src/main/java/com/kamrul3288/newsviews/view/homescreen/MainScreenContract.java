@@ -13,11 +13,13 @@ public interface MainScreenContract {
         void showNews(NewsList newsList);
         void showNetworkError(String message);
         void exitFromApp();
+        void showNumberAndDateResultInfo(String result);
     }
 
     interface MainScreenPresenter{
         void loadNews();
         void showExitDialog();
+        void loadNumberApi(String query);
         void onDestroy();
     }
 
@@ -27,10 +29,13 @@ public interface MainScreenContract {
             void onNewsLoadSuccess(NewsList newsList);
             void onNetworkError(String message);
             void onExitPositive();
+            void onNumberAndDateResultInfo(String result);
         }
 
         void loadNews(OnFinishListener listener, ApiInterfaces apiInterfaces, Activity activity);
         void showExitDialog(AlertDialog.Builder builder,OnFinishListener listener);
+        void loadNumberInfo(OnFinishListener listener, ApiInterfaces apiInterfaces, Activity activity,String number);
+        void loadDateInfo(OnFinishListener listener, ApiInterfaces apiInterfaces, Activity activity,String query);
 
     }
 

@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,13 +21,16 @@ import android.widget.TextView;
 
 import com.kamrul3288.newsviews.R;
 import com.kamrul3288.newsviews.adapter.NewsAdepter;
+import com.kamrul3288.newsviews.constant.Constants;
 import com.kamrul3288.newsviews.model.NewsList;
 import com.kamrul3288.newsviews.view.aboutscreen.AboutActivity;
 import com.kamrul3288.newsviews.view.base.BaseActivity;
 import com.kamrul3288.newsviews.view.homescreen.di.DaggerMainScreenComponent;
 import com.kamrul3288.newsviews.view.homescreen.di.MainScreenComponent;
 import com.kamrul3288.newsviews.view.homescreen.di.MainScreenModule;
+import com.kamrul3288.newsviews.view.numberapiscreen.NumberApiInfoActivity;
 import com.kamrul3288.newsviews.view.socialloginscreen.SocialLoginActivity;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 
 import javax.inject.Inject;
@@ -34,42 +40,35 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class MainActivity extends BaseActivity implements MainScreenContract.MainScreenView , SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends BaseActivity implements MainScreenContract.MainScreenView ,
+        SwipeRefreshLayout.OnRefreshListener, MaterialSearchView.OnQueryTextListener {
 
     private Unbinder unbinder;
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
-
     @BindView(R.id.nav_view)
     NavigationView navigationView;
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-
-
     @BindView(R.id.networkErrorText)
     TextView networkErrorText;
-
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.search_view)
+    MaterialSearchView searchView;
 
 
     @Inject
     NewsAdepter adepter;
-
     @Inject
     MainScreenPresenterImpl mainScreenPresenter;
-
     @Inject
     Activity activity;
-
     @Inject
     GridLayoutManager gridLayoutManager;
-
     @Inject
     AlertDialog.Builder builder;
 
@@ -86,12 +85,13 @@ public class MainActivity extends BaseActivity implements MainScreenContract.Mai
         component.inject(this);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-
         setToolBar();
         setNavigationDrawer();
         new NavHeaderViewHolder(navigationView.getHeaderView(0));
-
         mainScreenPresenter.loadNews();
+        searchView.setOnQueryTextListener(this);
+
+
 
 
 
@@ -114,6 +114,17 @@ public class MainActivity extends BaseActivity implements MainScreenContract.Mai
             }
         });
         toggle.setHomeAsUpIndicator(R.drawable.ic_menu);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+        searchView.setHint("number ex:11 and date ex: 12/10");
+        searchView.setHintTextColor(Color.parseColor("#AEAEAE"));
+        return true;
     }
 
     @Override
@@ -151,9 +162,25 @@ public class MainActivity extends BaseActivity implements MainScreenContract.Mai
     }
 
     @Override
+    public void showNumberAndDateResultInfo(String result) {
+        startActivity(new Intent(activity,NumberApiInfoActivity.class).putExtra(Constants.NUMBER_API_RESULT,result));
+    }
+
+    @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
         mainScreenPresenter.loadNews();
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        mainScreenPresenter.loadNumberApi(query);
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 
     class NavHeaderViewHolder{
@@ -187,14 +214,17 @@ public class MainActivity extends BaseActivity implements MainScreenContract.Mai
     }
 
 
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (searchView.isSearchOpen()) {
+                searchView.closeSearch();
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 

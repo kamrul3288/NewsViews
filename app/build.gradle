@@ -50,6 +50,7 @@ dependencies {
     //retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
 
     //gson
     implementation "com.google.code.gson:gson:$gson_version"
@@ -70,6 +71,8 @@ dependencies {
 
     //facebook
     implementation 'com.facebook.android:facebook-login:[4,5)'
+
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
 
 
 

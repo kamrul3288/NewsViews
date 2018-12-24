@@ -6,4 +6,5 @@ public class Constants {
     public static final String NEWS_API_KEY = "64d3def6c0f84ca38bfdcbbed133a090";
     public static final String EMAIL = "email";
     public static final String NEWS_LINK = "NEWS_LINK";
+    public static final String NUMBER_API_RESULT = "NUMBER_API_RESULT";
 }
